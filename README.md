@@ -7,7 +7,24 @@ This library has no prerequisites other than the standard C++ library.
 
 ## Description
 
+This library contains items useful in coding based on 
+[Design by Contract](https://en.wikipedia.org/wiki/Design_by_contract)). Specifically it provdes the ability
+to add checks on prerequisites, preconditions, postconditions, and middle conditions in an expressive
+manner.
 
+[API Documentation](http://www.kss.cc/apis/ksscontract/docs/index.html) 
+
+### Basic usage
+
+TODO: write this
+
+### To terminate or not to terminate?
+
+TODO: write this
+
+### Customizing for your own code
+
+TODO: write this
 
 ## Contributing
 

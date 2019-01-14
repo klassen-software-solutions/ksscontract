@@ -11,7 +11,34 @@
 		AA07441B21EC1AA8006E5EB9 /* contract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA07441A21EC1AA8006E5EB9 /* contract.cpp */; };
 		AA07441E21EC2BCE006E5EB9 /* version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA07441D21EC2BCE006E5EB9 /* version.cpp */; };
 		AA07442021EC2BD9006E5EB9 /* version.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AA07441F21EC2BD9006E5EB9 /* version.hpp */; };
+		AA07442F21EC4168006E5EB9 /* libksscontract.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA07440221EC0D07006E5EB9 /* libksscontract.dylib */; };
+		AA07443221EC41AC006E5EB9 /* ksstest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA07443021EC41AC006E5EB9 /* ksstest.cpp */; };
+		AA07443421EC41B9006E5EB9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA07443321EC41B9006E5EB9 /* main.cpp */; };
+		AA07443621EC420E006E5EB9 /* version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA07443521EC420E006E5EB9 /* version.cpp */; };
+		AA07443821EC44B0006E5EB9 /* contract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA07443721EC44B0006E5EB9 /* contract.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AA07442C21EC4161006E5EB9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA0743FA21EC0D07006E5EB9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA07440121EC0D07006E5EB9;
+			remoteInfo = ksscontract;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AA07442321EC4141006E5EB9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AA07440221EC0D07006E5EB9 /* libksscontract.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libksscontract.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,6 +57,12 @@
 		AA07441A21EC1AA8006E5EB9 /* contract.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = contract.cpp; sourceTree = "<group>"; };
 		AA07441D21EC2BCE006E5EB9 /* version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = version.cpp; sourceTree = "<group>"; };
 		AA07441F21EC2BD9006E5EB9 /* version.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = version.hpp; sourceTree = "<group>"; };
+		AA07442521EC4141006E5EB9 /* unittest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = unittest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA07443021EC41AC006E5EB9 /* ksstest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ksstest.cpp; sourceTree = "<group>"; };
+		AA07443121EC41AC006E5EB9 /* ksstest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ksstest.hpp; sourceTree = "<group>"; };
+		AA07443321EC41B9006E5EB9 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		AA07443521EC420E006E5EB9 /* version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = version.cpp; sourceTree = "<group>"; };
+		AA07443721EC44B0006E5EB9 /* contract.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = contract.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +70,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA07442221EC4141006E5EB9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA07442F21EC4168006E5EB9 /* libksscontract.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +92,7 @@
 				AA07441121EC0E88006E5EB9 /* Sources */,
 				AA07441021EC0E88006E5EB9 /* Tests */,
 				AA07440321EC0D07006E5EB9 /* Products */,
+				AA07442E21EC4168006E5EB9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				AA07440221EC0D07006E5EB9 /* libksscontract.dylib */,
+				AA07442521EC4141006E5EB9 /* unittest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,6 +121,11 @@
 		AA07441021EC0E88006E5EB9 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				AA07443721EC44B0006E5EB9 /* contract.cpp */,
+				AA07443021EC41AC006E5EB9 /* ksstest.cpp */,
+				AA07443121EC41AC006E5EB9 /* ksstest.hpp */,
+				AA07443321EC41B9006E5EB9 /* main.cpp */,
+				AA07443521EC420E006E5EB9 /* version.cpp */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -103,6 +151,13 @@
 				AA07441321EC0EC7006E5EB9 /* README.md */,
 			);
 			name = TopLevel;
+			sourceTree = "<group>";
+		};
+		AA07442E21EC4168006E5EB9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +193,24 @@
 			productReference = AA07440221EC0D07006E5EB9 /* libksscontract.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
+		AA07442421EC4141006E5EB9 /* unittest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA07442B21EC4141006E5EB9 /* Build configuration list for PBXNativeTarget "unittest" */;
+			buildPhases = (
+				AA07442121EC4141006E5EB9 /* Sources */,
+				AA07442221EC4141006E5EB9 /* Frameworks */,
+				AA07442321EC4141006E5EB9 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA07442D21EC4161006E5EB9 /* PBXTargetDependency */,
+			);
+			name = unittest;
+			productName = unittest;
+			productReference = AA07442521EC4141006E5EB9 /* unittest */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -148,6 +221,9 @@
 				ORGANIZATIONNAME = "Klassen Software Solutions";
 				TargetAttributes = {
 					AA07440121EC0D07006E5EB9 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					AA07442421EC4141006E5EB9 = {
 						CreatedOnToolsVersion = 10.1;
 					};
 				};
@@ -165,6 +241,7 @@
 			projectRoot = "";
 			targets = (
 				AA07440121EC0D07006E5EB9 /* ksscontract */,
+				AA07442421EC4141006E5EB9 /* unittest */,
 			);
 		};
 /* End PBXProject section */
@@ -200,7 +277,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA07442121EC4141006E5EB9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA07443621EC420E006E5EB9 /* version.cpp in Sources */,
+				AA07443421EC41B9006E5EB9 /* main.cpp in Sources */,
+				AA07443221EC41AC006E5EB9 /* ksstest.cpp in Sources */,
+				AA07443821EC44B0006E5EB9 /* contract.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AA07442D21EC4161006E5EB9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA07440121EC0D07006E5EB9 /* ksscontract */;
+			targetProxy = AA07442C21EC4161006E5EB9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		AA07440421EC0D07006E5EB9 /* Debug */ = {
@@ -340,6 +436,26 @@
 			};
 			name = Release;
 		};
+		AA07442921EC4141006E5EB9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 23FN26LWBV;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/.build/Darwin-x86_64/include";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AA07442A21EC4141006E5EB9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 23FN26LWBV;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/.build/Darwin-x86_64/include";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -357,6 +473,15 @@
 			buildConfigurations = (
 				AA07440721EC0D07006E5EB9 /* Debug */,
 				AA07440821EC0D07006E5EB9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA07442B21EC4141006E5EB9 /* Build configuration list for PBXNativeTarget "unittest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA07442921EC4141006E5EB9 /* Debug */,
+				AA07442A21EC4141006E5EB9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
