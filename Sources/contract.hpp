@@ -62,13 +62,15 @@ namespace kss { namespace contract {
      Instead you should create the expression object using the KSS_EXPR macro.
 
      Example:
-         void myfn(int minValue, int maxValue) {
-             parameters({
-                 KSS_EXPR(minValue > 0),
-                 KSS_EXPR(minValue <= maxValue)
-             });
-             ... function code ...
-         }
+     @code
+     void myfn(int minValue, int maxValue) {
+         parameters({
+             KSS_EXPR(minValue > 0),
+             KSS_EXPR(minValue <= maxValue)
+         });
+         ... function code ...
+     }
+     @endcode
 
      @throws std::invalid_argument if one or more of the expressions fail
      @throws any other exception that the expressions may throw
@@ -88,13 +90,15 @@ namespace kss { namespace contract {
      Instead you should create the expression object using the KSS_EXPR macro.
 
      Example:
-         void myfn(int minValue, int maxValue) {
-             preconditions({
-                 KSS_EXPR(minValue > 0),
-                 KSS_EXPR(minValue <= maxValue)
-             });
-             ... your function code ...
-         }
+     @code
+     void myfn(int minValue, int maxValue) {
+         preconditions({
+             KSS_EXPR(minValue > 0),
+             KSS_EXPR(minValue <= maxValue)
+         });
+         ... your function code ...
+     }
+     @endcode
 
      @throws any exception that the expressions may throw
      */
@@ -113,14 +117,16 @@ namespace kss { namespace contract {
      Instead you should create the expression object using the KSS_EXPR macro.
 
      Example:
-         void myfn(int minValue, int maxValue) {
-             ... your function code ...
-             conditions({
-                 KSS_EXPR(minValue > 0),
-                 KSS_EXPR(minValue <= maxValue)
-             });
-             ... your function code ...
-         }
+     @code
+     void myfn(int minValue, int maxValue) {
+         ... your function code ...
+         conditions({
+             KSS_EXPR(minValue > 0),
+             KSS_EXPR(minValue <= maxValue)
+         });
+         ... your function code ...
+     }
+     @endcode
 
      @throws std::invalid_argument (actually kss::contract::InvalidArgument) if one or
             more of the expressions fail.
@@ -141,13 +147,15 @@ namespace kss { namespace contract {
      Instead you should create the expression object using the KSS_EXPR macro. 
 
      Example:
-         void myfn(int minValue, int maxValue) {
-             ... your function code ...
-             postconditions({
-                 KSS_EXPR(minValue > 0),
-                 KSS_EXPR(minValue <= maxValue)
-             });
-         }
+     @code
+     void myfn(int minValue, int maxValue) {
+         ... your function code ...
+         postconditions({
+             KSS_EXPR(minValue > 0),
+             KSS_EXPR(minValue <= maxValue)
+         });
+     }
+     @endcode
 
      @throws any exception that the expressions may throw
      */

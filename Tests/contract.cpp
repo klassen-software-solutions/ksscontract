@@ -26,9 +26,14 @@ namespace {
         os.flush();
         os.rdbuf(oldbuf);
     }
+
+    class ContractTestSuite : public TestSuite, public MustNotBeParallel {
+    public:
+        ContractTestSuite(test_case_list fns) : TestSuite("contract", fns) {}
+    };
 }
 
-static TestSuite ts("contract", {
+static ContractTestSuite ts({
     make_pair("passing", [](TestSuite&) {
         contract::parameters({ KSS_EXPR(true) });
         contract::preconditions({ KSS_EXPR(true) });
