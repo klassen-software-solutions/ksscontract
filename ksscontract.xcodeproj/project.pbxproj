@@ -63,6 +63,7 @@
 		AA07443321EC41B9006E5EB9 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		AA07443521EC420E006E5EB9 /* version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = version.cpp; sourceTree = "<group>"; };
 		AA07443721EC44B0006E5EB9 /* contract.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = contract.cpp; sourceTree = "<group>"; };
+		AA4D19C521F3C64A002A7FBB /* intro.dox */ = {isa = PBXFileReference; lastKnownFileType = text; path = intro.dox; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +134,7 @@
 		AA07441121EC0E88006E5EB9 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				AA4D19C521F3C64A002A7FBB /* intro.dox */,
 				AA07441A21EC1AA8006E5EB9 /* contract.cpp */,
 				AA07441821EC1A9C006E5EB9 /* contract.hpp */,
 				AA07441D21EC2BCE006E5EB9 /* version.cpp */,
