@@ -8,11 +8,11 @@ This library has no prerequisites other than the standard C++ library.
 ## Description
 
 This library contains items useful in coding based on 
-[Design by Contract](https://en.wikipedia.org/wiki/Design_by_contract)). Specifically it provdes the ability
-to add checks on prerequisites, preconditions, postconditions, and middle conditions in an expressive
+[Design by Contract](https://en.wikipedia.org/wiki/Design_by_contract). Specifically it provides the ability
+to add checks on parameters, preconditions, postconditions, and middle conditions in an expressive
 manner.
 
-[API Documentation](http://www.kss.cc/apis/ksscontract/docs/index.html) 
+[API Documentation](https://www.kss.cc/apis/ksscontract/docs/index.html) 
 
 ### To terminate or not to terminate?
 
@@ -44,6 +44,10 @@ code in this library. In that case we recommend that you copy the files `contrac
 `contract.cpp` into your own library, change the namespace if you so desire, and then
 modify the `performThrowingCheck` and the `performTerminatingCheck` to act as you
 desire.
+
+### Using this library
+
+TODO: give some basic examples
 
 ## Contributing
 
