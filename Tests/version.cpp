@@ -14,7 +14,7 @@ using namespace kss::test;
 
 
 static TestSuite ts("version", {
-    make_pair("existance", [](TestSuite&) {
+    make_pair("existance", [] {
         KSS_ASSERT(!kss::contract::version().empty());
         KSS_ASSERT(!kss::contract::license().empty());
     })

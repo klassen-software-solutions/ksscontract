@@ -29,12 +29,12 @@ namespace {
 
     class ContractTestSuite : public TestSuite, public MustNotBeParallel {
     public:
-        ContractTestSuite(test_case_list fns) : TestSuite("contract", fns) {}
+        ContractTestSuite(test_case_list_t fns) : TestSuite("contract", fns) {}
     };
 }
 
 static ContractTestSuite ts({
-    make_pair("passing", [](TestSuite&) {
+    make_pair("passing", [] {
         contract::parameters({ KSS_EXPR(true) });
         contract::preconditions({ KSS_EXPR(true) });
         contract::conditions({ KSS_EXPR(true) });
@@ -43,7 +43,7 @@ static ContractTestSuite ts({
         // Nothing to check except that we get here.
         KSS_ASSERT(true);
     }),
-    make_pair("failing", [](TestSuite&) {
+    make_pair("failing", [] {
         suppress(cerr, [] {
             KSS_ASSERT(throwsException<invalid_argument>([]{
                 contract::parameters({ KSS_EXPR(false) });
