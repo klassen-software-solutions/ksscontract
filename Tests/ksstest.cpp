@@ -8,9 +8,9 @@
 //
 
 #include <algorithm>
+#include <atomic>
 #include <cassert>
-#include <chrono>
-#include <cstdlib>
+#include <condition_variable>
 #include <ctime>
 #include <exception>
 #include <fstream>
@@ -23,6 +23,7 @@
 #include <set>
 #include <sstream>
 #include <string>
+#include <thread>
 #include <vector>
 
 #include <cxxabi.h>
@@ -34,8 +35,15 @@
 #include "ksstest.hpp"
 
 using namespace std;
+using namespace std::chrono;
 using namespace kss::test;
 
+
+// MARK: Configuration constants.
+
+namespace {
+    constexpr size_t maxFailureReportLineLength = 100;
+}
 
 // MARK: Simple XML streaming "borrowed" from kssutil
 
@@ -366,14 +374,6 @@ namespace { namespace json {
 // MARK: State of the world
 
 namespace {
-    typedef chrono::duration<double, std::chrono::seconds::period> fractional_seconds_t;
-
-    // Name demangling.
-    template <typename T>
-    string demangle(const T& t = T()) {
-        int status;
-        return abi::__cxa_demangle(typeid(t).name(), 0, 0, &status);
-    }
 
     struct TestError {
         string errorType;           // The name of the exception.
@@ -385,11 +385,13 @@ namespace {
 
         static TestError makeError(const exception& e) {
             TestError ret;
-            ret.errorType = demangle(e);
+            ret.errorType = _private::demangle(e);
             ret.errorMessage = e.what();
             return ret;
         }
     };
+
+    using failures_t = vector<pair<string, string>>;
 
     struct TestCaseWrapper {
         string                  name;
@@ -397,9 +399,10 @@ namespace {
         TestSuite::test_case_fn fn;
         unsigned int            assertions = 0;
         vector<TestError>       errors;
-        vector<string>          failures;
+        failures_t              failures;
         bool                    skipped = false;
-        fractional_seconds_t    durationOfTest;
+        duration<double>        durationOfTest;
+        string                  mostRecentDetails;
 
         bool operator<(const TestCaseWrapper& rhs) const noexcept {
             return name < rhs.name;
@@ -407,14 +410,14 @@ namespace {
     };
 
     struct TestSuiteWrapper {
-        TestSuite*              suite;
-        bool                    filteredOut = false;
-        string                  timestamp;
-        fractional_seconds_t    durationOfTestSuite;
-        unsigned                numberOfErrors = 0;
-        unsigned                numberOfFailedAssertions = 0;
-        unsigned                numberOfSkippedTests = 0;
-        unsigned                numberOfFailedTests = 0;
+        TestSuite*          suite;
+        bool                filteredOut = false;
+        string              timestamp;
+        duration<double>    durationOfTestSuite;
+        unsigned            numberOfErrors = 0;
+        unsigned            numberOfFailedAssertions = 0;
+        unsigned            numberOfSkippedTests = 0;
+        unsigned            numberOfFailedTests = 0;
 
         bool operator<(const TestSuiteWrapper& rhs) const noexcept {
             return suite->name() < rhs.suite->name();
@@ -426,6 +429,7 @@ namespace {
     static bool                             isQuietMode = false;
     static bool                             isVerboseMode = false;
     static bool                             isParallel = true;
+    static bool                             stopOnFirstFailure = false;
     static string                           filter;
     static string                           xmlReportFilename;
     static string                           jsonReportFilename;
@@ -440,16 +444,16 @@ namespace {
 
     // Summary of test results.
     struct TestResultSummary {
-        mutex                   lock;
-        string                  programName;
-        string                  nameOfTestRun;
-        string                  nameOfHost;
-        string                  timeOfTestRun;
-        fractional_seconds_t    durationOfTestRun;
-        unsigned                numberOfErrors = 0;
-        unsigned                numberOfFailures = 0;
-        unsigned                numberOfAssertions = 0;
-        unsigned                numberOfTests = 0;
+        mutex               lock;
+        string              programName;
+        string              nameOfTestRun;
+        string              nameOfHost;
+        string              timeOfTestRun;
+        duration<double>    durationOfTestRun;
+        unsigned            numberOfErrors = 0;
+        unsigned            numberOfFailures = 0;
+        unsigned            numberOfAssertions = 0;
+        unsigned            numberOfTests = 0;
     };
     static TestResultSummary reportSummary;
 }
@@ -512,6 +516,7 @@ namespace {
         { "xml", required_argument, nullptr, 'X' },
         { "json", required_argument, nullptr, 'J' },
         { "no-parallel", no_argument, nullptr, 'N' },
+        { "stop-on-first-failure", no_argument, nullptr, 'S' },
         { nullptr, 0, nullptr, 0 }
     };
 
@@ -540,10 +545,12 @@ The following are the accepted command line options:
 -v/--verbose displays more information (-q will override this if present. Specifying
     this option will also cause --no-parallel to be assumed.)
 -f <testprefix>/--filter=<testprefix> only run tests that start with the prefix
----xml=<filename> writes a JUnit test compatible XML to the given filename
+--xml=<filename> writes a JUnit test compatible XML to the given filename
 --json=<filename> writes a gUnit test compatible JSON to the given filename
 --no-parallel will force all tests to be run in the same thread (This is assumed if
     the --verbose option is specified.)
+--stop-on-first-failure will cause the test program to stop shortly after the first failure
+    or error has been detected.
 
 The display options essentially run in three modes.
 
@@ -638,6 +645,9 @@ times that KSS_ASSERT failed) in all the test cases in all the test suites.
                     case 'J':
                         jsonReportFilename = getArgument();
                         break;
+                    case 'S':
+                        stopOnFirstFailure = true;
+                        break;
                 }
             }
 
@@ -679,10 +689,10 @@ times that KSS_ASSERT failed) in all the test cases in all the test suites.
     }
 
     // Return the time that fn took to run.
-    fractional_seconds_t time_of_execution(function<void ()> fn) {
-        const auto start = chrono::high_resolution_clock::now();
+    duration<double> timeOfExecution(function<void ()> fn) {
+        const auto start = steady_clock::now();
         fn();
-        return chrono::duration_cast<fractional_seconds_t>(chrono::high_resolution_clock::now() - start);
+        return duration_cast<duration<double>>(steady_clock::now() - start);
     }
 
     // Return the current timestamp in ISO 8601 format.
@@ -718,14 +728,14 @@ struct TestSuite::Impl {
             TestCaseWrapper wrapper;
             wrapper.name = "BeforeAll";
             wrapper.owner = parent;
-            wrapper.fn = [=](TestSuite& suite) { hba->beforeAll(); };
+            wrapper.fn = [hba] { hba->beforeAll(); };
             tests.insert(tests.begin(), move(wrapper));
         }
         if (auto* haa = as<HasAfterAll>(parent)) {
             TestCaseWrapper wrapper;
             wrapper.name = "AfterAll";
             wrapper.owner = parent;
-            wrapper.fn = [=](TestSuite& suite) { haa->afterAll(); };
+            wrapper.fn = [haa] { haa->afterAll(); };
             tests.push_back(move(wrapper));
         }
     }
@@ -734,11 +744,11 @@ struct TestSuite::Impl {
     void runTestCase(TestCaseWrapper& t) {
         currentTest = &t;
         try {
-            t.durationOfTest = time_of_execution([&]{
+            t.durationOfTest = timeOfExecution([&]{
                 if (auto* hbe = as<HasBeforeEach>(parent)) {
                     if (t.name != "BeforeAll" && t.name != "AfterAll") hbe->beforeEach();
                 }
-                t.fn(*parent);
+                t.fn();
                 if (auto* haa = as<HasAfterEach>(parent)) {
                     if (t.name != "BeforeAll" && t.name != "AfterAll") haa->afterEach();
                 }
@@ -897,7 +907,10 @@ namespace {
                     for (const auto& ts : *suites) {
                         for (const auto& t : ts.suite->_implementation()->tests) {
                             for (const auto& f : t.failures) {
-                                cout << "    " << f << endl;
+                                cout << "    " << f.first << endl;
+                                if (!f.second.empty()) {
+                                    cout << "       ↳" << f.second << endl;
+                                }
                             }
                         }
                     }
@@ -910,6 +923,12 @@ namespace {
 
     template <class T, class Node>
     struct AbstractGenerator {
+        virtual ~AbstractGenerator() = default;
+        AbstractGenerator(const AbstractGenerator&) = default;
+        AbstractGenerator(AbstractGenerator&&) = default;
+        AbstractGenerator& operator=(const AbstractGenerator&) = default;
+        AbstractGenerator& operator=(AbstractGenerator&&) = default;
+
         Node* operator()() {
             if (_it == _items.end()) {
                 return nullptr;
@@ -921,26 +940,37 @@ namespace {
                 return &_n;
             }
         }
+
         virtual void populate() = 0;
+
     protected:
         AbstractGenerator(const vector<T>& items) : _items(items) {
             _it = _items.begin();
         }
         const vector<T>&                    _items;
-        typename vector<T>::const_iterator    _it;
+        typename vector<T>::const_iterator  _it;
         Node                                _n;
     };
 
-    struct FailureXmlGenerator : public AbstractGenerator<string, xml::simple_writer::node> {
-        FailureXmlGenerator(const vector<string>& failures) : AbstractGenerator(failures) {}
+    struct FailureXmlGenerator
+    : public AbstractGenerator<pair<string, string>, xml::simple_writer::node>
+    {
+        FailureXmlGenerator(const failures_t& failures) : AbstractGenerator(failures) {}
+        virtual ~FailureXmlGenerator() = default;
+
         virtual void populate() override {
             _n.name = "failure";
-            _n["message"] = *_it;
+            _n["message"] = _it->first;
+            if (!_it->second.empty()) {
+                _n.text = _it->second;
+            }
         }
     };
 
     struct ErrorXmlGenerator : public AbstractGenerator<TestError, xml::simple_writer::node> {
         ErrorXmlGenerator(const vector<TestError>& errors) : AbstractGenerator(errors) {}
+        virtual ~ErrorXmlGenerator() = default;
+
         virtual void populate() override {
             _n.name = "error";
             _n["message"] = _it->errorMessage;
@@ -950,11 +980,13 @@ namespace {
 
     struct TestCaseXmlGenerator : public AbstractGenerator<TestCaseWrapper, xml::simple_writer::node> {
         TestCaseXmlGenerator(const vector<TestCaseWrapper>& testCases) : AbstractGenerator(testCases) {}
+        virtual ~TestCaseXmlGenerator() = default;
+
         virtual void populate() override {
             _n.name = "testcase";
             _n["name"] = _it->name;
             _n["assertions"] = to_string(_it->assertions);
-            _n["classname"] = (_it->owner ? demangle(*(_it->owner)) : string("none"));
+            _n["classname"] = (_it->owner ? _private::demangle(*(_it->owner)) : string("none"));
             _n["time"] = to_string(_it->durationOfTest.count());
             if (!_it->errors.empty() || !_it->failures.empty()) {
                 _n.children = {
@@ -967,6 +999,8 @@ namespace {
 
     struct TestSuiteXmlGenerator : public AbstractGenerator<TestSuiteWrapper, xml::simple_writer::node> {
         TestSuiteXmlGenerator(const vector<TestSuiteWrapper>& suites) : AbstractGenerator(suites) {}
+        virtual ~TestSuiteXmlGenerator() = default;
+
         virtual void populate() override {
             _n.name = "testsuite";
             _n["name"] = _it->suite->name();
@@ -980,6 +1014,7 @@ namespace {
             _n["timestamp"] = _it->timestamp;
             _n.children = { TestCaseXmlGenerator(_it->suite->_implementation()->tests) };
         }
+
     private:
         int id = 0;
     };
@@ -1015,20 +1050,29 @@ namespace {
     }
 
 
-    struct FailureJsonGenerator : public AbstractGenerator<string, json::simple_writer::node>{
-        FailureJsonGenerator(const vector<string>& failures) : AbstractGenerator(failures) {}
+    struct FailureJsonGenerator
+    : public AbstractGenerator<pair<string, string>, json::simple_writer::node>
+    {
+        FailureJsonGenerator(const failures_t& failures) : AbstractGenerator(failures) {}
+        virtual ~FailureJsonGenerator() = default;
+
         virtual void populate() override {
-            _n["message"] = *_it;
+            _n["message"] = _it->first;
+            if (!_it->second.empty()) {
+                _n["message"] += " (" + _it->second + ")";
+            }
         }
     };
 
     struct TestCaseJsonGenerator : public AbstractGenerator<TestCaseWrapper, json::simple_writer::node> {
         TestCaseJsonGenerator(const vector<TestCaseWrapper>& tests) : AbstractGenerator(tests) {}
+        virtual ~TestCaseJsonGenerator() = default;
+
         virtual void populate() override {
             _n["name"] = _it->name;
             _n["status"] = (_it->skipped ? "NOTRUN" : "RUN");
             _n["time"] = to_string(_it->durationOfTest.count());
-            _n["classname"] = (_it->owner ? demangle(*(_it->owner)) : string("none"));
+            _n["classname"] = (_it->owner ? _private::demangle(*(_it->owner)) : string("none"));
             if (!_it->failures.empty()) {
                 _n.arrays = { make_pair("failures", FailureJsonGenerator(_it->failures)) };
             }
@@ -1037,6 +1081,8 @@ namespace {
 
     struct TestSuiteJsonGenerator : public AbstractGenerator<TestSuiteWrapper, json::simple_writer::node> {
         TestSuiteJsonGenerator(const vector<TestSuiteWrapper>& suites) : AbstractGenerator(suites) {}
+        virtual ~TestSuiteJsonGenerator() = default;
+
         virtual void populate() override {
             _n["name"] = _it->suite->name();
             _n["tests"] = to_string(_it->suite->_implementation()->tests.size());
@@ -1134,7 +1180,10 @@ namespace {
                     cout << "    Failures:" << endl;
                     for (const auto& t : impl->tests) {
                         for (const auto& f : t.failures) {
-                            cout << "      " << f << endl;
+                            cout << "      " << f.first << endl;
+                            if (!f.second.empty()) {
+                                cout << "         ↳" << f.second << endl;
+                            }
                         }
                     }
                 }
@@ -1176,7 +1225,7 @@ namespace {
         impl->addBeforeAndAfterAll();
         currentSuite = wrapper;
 
-        wrapper->durationOfTestSuite = time_of_execution([&]{
+        wrapper->durationOfTestSuite = timeOfExecution([&]{
             for (auto& t : impl->tests) {
                 printTestCaseHeader(t);
                 impl->runTestCase(t);
@@ -1186,6 +1235,16 @@ namespace {
 
         currentSuite = nullptr;
         printTestSuiteSummary(*wrapper);
+
+        if (stopOnFirstFailure) {
+            if (wrapper->numberOfErrors > 0 || wrapper->numberOfFailedTests > 0) {
+                if (!isVerboseMode) {
+                    cerr << endl;
+                }
+                cerr << "Early termination requested, exiting." << endl;
+                exit(wrapper->numberOfErrors + wrapper->numberOfFailedTests);
+            }
+        }
     }
 }
 
@@ -1202,7 +1261,7 @@ namespace kss { namespace test {
 
             sort(suites->begin(), suites->end());
             reportSummary.timeOfTestRun = now();
-            reportSummary.durationOfTestRun = time_of_execution([&]{
+            reportSummary.durationOfTestRun = timeOfExecution([&]{
                 vector<future<bool>> futures;
 
                 for (auto& ts : *suites) {
@@ -1254,8 +1313,11 @@ namespace kss { namespace test {
         try {
             fn();
         }
-        catch (const exception&) {
+        catch (const exception& e) {
             caughtSomething = true;
+            _private::setFailureDetails("threw "
+                                        + _private::demangle(e)
+                                        + ", what=" + e.what());
         }
         return !caughtSomething;
     }
@@ -1267,8 +1329,15 @@ namespace kss { namespace test {
         }
         catch (const system_error& e) {
             caughtCorrectCategory = (e.code().category() == cat);
+            if (!caughtCorrectCategory) {
+                _private::setFailureDetails(string("actual category was ")
+                                            + e.code().category().name());
+            }
         }
-        catch (const exception&) {
+        catch (const exception& e) {
+            _private::setFailureDetails("actually exception was "
+                                        + _private::demangle(e)
+                                        + ", what=" + e.what());
         }
         return caughtCorrectCategory;
     }
@@ -1280,8 +1349,17 @@ namespace kss { namespace test {
         }
         catch (const system_error& e) {
             caughtCorrectCode = (e.code() == code);
+            if (!caughtCorrectCode) {
+                _private::setFailureDetails(string("actual code was ")
+                                            + to_string(e.code().value())
+                                            + ", category "
+                                            + e.code().category().name());
+            }
         }
-        catch (const exception&) {
+        catch (const exception& e) {
+            _private::setFailureDetails("actually exception was "
+                                        + _private::demangle(e)
+                                        + ", what=" + e.what());
         }
         return caughtCorrectCode;
     }
@@ -1358,23 +1436,90 @@ const string& TestSuite::name() const noexcept {
     return _impl->name;
 }
 
+TestSuite& TestSuite::get() noexcept {
+    assert(currentSuite != nullptr);     // Fails if called in a new thread.
+    assert(currentSuite->suite != nullptr);
+    return *(currentSuite->suite);
+}
+
+TestSuite::test_case_context_t TestSuite::testCaseContext() const noexcept {
+    assert(currentTest != nullptr);     // Fails if called in a new thread.
+    return currentTest;
+}
+
+void TestSuite::setTestCaseContext(test_case_context_t ctx) noexcept {
+    assert(ctx != nullptr);             // User must not set a null value.
+    currentTest = static_cast<TestCaseWrapper*>(ctx);
+}
+
 
 // MARK: _private Implementation
 
 namespace kss { namespace test { namespace _private {
 
-    void _success(void) noexcept {
+    void success(void) noexcept {
+        assert(currentTest != nullptr);
         ++currentTest->assertions;
         if (isVerboseMode) {
             cout << ".";
         }
     }
 
-    void _failure(const char* expr, const char* filename, unsigned int line) noexcept {
+    void failure(const char* expr, const char* filename, unsigned int line) noexcept {
+        assert(currentTest != nullptr);
         ++currentTest->assertions;
-        currentTest->failures.push_back(basename(filename) + ": " + to_string(line) + ", " + expr);
+        auto f = make_pair(basename(filename) + ": " + to_string(line) + ", " + expr,
+                           currentTest->mostRecentDetails);
+        if (f.first.size() > maxFailureReportLineLength) {
+            f.first.resize(maxFailureReportLineLength);
+            f.first.append("...");
+        }
+        currentTest->failures.push_back(move(f));
+        currentTest->mostRecentDetails = "";
         if (isVerboseMode) {
             cout << "F";
         }
     }
+
+    bool completesWithinSec(const duration<double>& d, const function<void()>& fn) {
+        // The condition variable is used to ensure that fn does not cause us to stop
+        // more than 4x the requested duration. If it does, we terminate the process.
+        condition_variable cv;
+        mutex m;
+        bool hasCompleted = false;
+        thread th([&] {
+            unique_lock<mutex> l(m);
+            if (!hasCompleted) {
+                cv.wait_for(l, d * 4);
+                if (!hasCompleted) {
+                    terminate();
+                }
+            }
+        });
+
+        const auto dur = timeOfExecution(fn);
+        {
+            lock_guard<mutex> l(m);
+            hasCompleted = true;
+            cv.notify_all();
+        }
+        th.join();
+
+        const auto ret = (dur <= d);
+        if (!ret) {
+            _private::setFailureDetails("actual duration was " + to_string(dur.count()) + "s");
+        }
+        return (dur <= d);
+    }
+
+    void setFailureDetails(const string& d) {
+        assert(currentTest != nullptr);
+        currentTest->mostRecentDetails = d;
+    }
+
+    string demangleName(const char* mangledName) {
+        int status;
+        return abi::__cxa_demangle(mangledName, 0, 0, &status);
+    }
+    
 }}}

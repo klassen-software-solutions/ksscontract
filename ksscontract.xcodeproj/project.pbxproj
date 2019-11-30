@@ -64,6 +64,8 @@
 		AA07443521EC420E006E5EB9 /* version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = version.cpp; sourceTree = "<group>"; };
 		AA07443721EC44B0006E5EB9 /* contract.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = contract.cpp; sourceTree = "<group>"; };
 		AA4D19C521F3C64A002A7FBB /* intro.dox */ = {isa = PBXFileReference; lastKnownFileType = text; path = intro.dox; sourceTree = "<group>"; };
+		AAFF8CB3238D64810077628E /* .github */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .github; sourceTree = "<group>"; };
+		AAFF8CB4238D64810077628E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,8 @@
 		AA0743F921EC0D07006E5EB9 = {
 			isa = PBXGroup;
 			children = (
+				AAFF8CB3238D64810077628E /* .github */,
+				AAFF8CB4238D64810077628E /* .gitignore */,
 				AA07441221EC0E92006E5EB9 /* TopLevel */,
 				AA07440921EC0E88006E5EB9 /* BuildSystem */,
 				AA07441121EC0E88006E5EB9 /* Sources */,
