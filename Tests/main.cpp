@@ -7,7 +7,7 @@
 //  Licensing follows the MIT License.
 //
 
-#include "ksstest.hpp"
+#include <kss/test/all.h>
 
 int main(int argc, char* argv[]) {
     return kss::test::run("KSSContract", argc, argv);

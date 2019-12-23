@@ -14,7 +14,7 @@
 #include <sstream>
 #include <string>
 
-#include "ksstest.hpp"
+#include <kss/test/all.h>
 
 // "Borrowed" from kssio
 void suppress(std::ostream& os, const std::function<void ()>& fn);

@@ -6,8 +6,8 @@
 //  Copyright © 2019 Klassen Software Solutions. All rights reserved.
 //
 
+#include <kss/test/all.h>
 #include <kss/contract/contract.hpp>
-#include "ksstest.hpp"
 #include "tools.hpp"
 
 using namespace std;

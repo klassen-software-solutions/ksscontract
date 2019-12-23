@@ -8,7 +8,7 @@
 
 #include <string>
 #include <kss/contract/invariant.hpp>
-#include "ksstest.hpp"
+#include <kss/test/all.h>
 #include "tools.hpp"
 
 using namespace std;
