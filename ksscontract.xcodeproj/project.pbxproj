@@ -64,7 +64,8 @@
 		AA6C3BC623AEEC7E00ACE3C2 /* tools.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = tools.hpp; sourceTree = "<group>"; };
 		AA6C3BCA23AEEF9A00ACE3C2 /* rtti.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rtti.cpp; sourceTree = "<group>"; };
 		AA6C3BCC23B0324D00ACE3C2 /* BuildSystem */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BuildSystem; sourceTree = "<group>"; };
-		AA6C3BCD23B033BE00ACE3C2 /* prereqs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = prereqs.json; sourceTree = "<group>"; };
+		AA6C3BCE23B1208600ACE3C2 /* Dependancies */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Dependancies; sourceTree = "<group>"; };
+		AA6C3BCF23B1219400ACE3C2 /* .gitattributes */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
 		AAFF8CB3238D64810077628E /* .github */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .github; sourceTree = "<group>"; };
 		AAFF8CB4238D64810077628E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,6 +95,7 @@
 				AA07441221EC0E92006E5EB9 /* TopLevel */,
 				AAFF8CB3238D64810077628E /* .github */,
 				AA6C3BCC23B0324D00ACE3C2 /* BuildSystem */,
+				AA6C3BCE23B1208600ACE3C2 /* Dependancies */,
 				AA07441121EC0E88006E5EB9 /* Sources */,
 				AA07441021EC0E88006E5EB9 /* Tests */,
 				AA07440321EC0D07006E5EB9 /* Products */,
@@ -140,11 +142,11 @@
 		AA07441221EC0E92006E5EB9 /* TopLevel */ = {
 			isa = PBXGroup;
 			children = (
+				AA6C3BCF23B1219400ACE3C2 /* .gitattributes */,
 				AAFF8CB4238D64810077628E /* .gitignore */,
 				AA07441721EC0EC8006E5EB9 /* configure */,
 				AA07441421EC0EC7006E5EB9 /* LICENSE */,
 				AA07441621EC0EC8006E5EB9 /* Makefile */,
-				AA6C3BCD23B033BE00ACE3C2 /* prereqs.json */,
 				AA07441321EC0EC7006E5EB9 /* README.md */,
 			);
 			name = TopLevel;
