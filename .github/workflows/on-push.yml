@@ -36,6 +36,8 @@ jobs:
       if: |
         !startsWith(github.event.head_commit.message, 'WIP')
         && !startsWith(github.ref, 'refs/tags/')
+      env:
+        KSS_INSTALL_PREFIX: "/tmp/opt/kss"
       run: |
         ./configure
         make prep
@@ -45,6 +47,8 @@ jobs:
       if: |
         !startsWith(github.event.head_commit.message, 'WIP')
         && !startsWith(github.ref, 'refs/tags/')
+      env:
+        KSS_INSTALL_PREFIX: "/tmp/opt/kss"
       run: |
         make -j 4 check
 
@@ -53,5 +57,7 @@ jobs:
         !startsWith(github.event.head_commit.message, 'WIP')
         && runner.os == 'macOS'
         && startsWith(github.ref, 'refs/heads/feature/')
+      env:
+        KSS_INSTALL_PREFIX: "/tmp/opt/kss"
       run: |
         make analyze
