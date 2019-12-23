@@ -3,7 +3,9 @@ Tools to assist with "programming by contract"
 
 ## Prerequisites
 
-This library has no prerequisites other than the standard C++ library.
+* ksstest - needed for running the unit tests
+
+All prerequisites can be installed by running `make prereqs`
 
 ## Description
 
@@ -40,14 +42,10 @@ try to avoid this as the production code is the code that is most likely to be a
 where the correctness checks are most important.)
 
 However, if you want to change the action on when a condition fails, you will need to modify the
-code in this library. In that case we recommend that you copy the files `contract.hpp` and
-`contract.cpp` into your own library, change the namespace if you so desire, and then
+code in this library. In that case we recommend that you copy the files into your own library, 
+change the namespace appropriately, and then
 modify the `performThrowingCheck` and the `performTerminatingCheck` to act as you
 desire.
-
-### Using this library
-
-TODO: give some basic examples
 
 ## Contributing
 
