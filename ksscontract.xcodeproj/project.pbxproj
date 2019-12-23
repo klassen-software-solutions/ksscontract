@@ -12,10 +12,13 @@
 		AA07441E21EC2BCE006E5EB9 /* version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA07441D21EC2BCE006E5EB9 /* version.cpp */; };
 		AA07442021EC2BD9006E5EB9 /* version.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AA07441F21EC2BD9006E5EB9 /* version.hpp */; };
 		AA07442F21EC4168006E5EB9 /* libksscontract.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA07440221EC0D07006E5EB9 /* libksscontract.dylib */; };
-		AA07443221EC41AC006E5EB9 /* ksstest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA07443021EC41AC006E5EB9 /* ksstest.cpp */; };
 		AA07443421EC41B9006E5EB9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA07443321EC41B9006E5EB9 /* main.cpp */; };
 		AA07443621EC420E006E5EB9 /* version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA07443521EC420E006E5EB9 /* version.cpp */; };
 		AA07443821EC44B0006E5EB9 /* contract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA07443721EC44B0006E5EB9 /* contract.cpp */; };
+		AA6C3BC223AEDF9500ACE3C2 /* invariant.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AA6C3BC123AEDF9500ACE3C2 /* invariant.hpp */; };
+		AA6C3BC423AEEBE000ACE3C2 /* invariant.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA6C3BC323AEEBE000ACE3C2 /* invariant.cpp */; };
+		AA6C3BC723AEEC7E00ACE3C2 /* tools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA6C3BC523AEEC7E00ACE3C2 /* tools.cpp */; };
+		AA6C3BCB23AEEF9A00ACE3C2 /* rtti.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA6C3BCA23AEEF9A00ACE3C2 /* rtti.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,15 +45,8 @@
 
 /* Begin PBXFileReference section */
 		AA07440221EC0D07006E5EB9 /* libksscontract.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libksscontract.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA07440A21EC0E88006E5EB9 /* generate_all_h.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate_all_h.sh; sourceTree = "<group>"; };
-		AA07440B21EC0E88006E5EB9 /* update_prereqs.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = update_prereqs.py; sourceTree = "<group>"; };
-		AA07440C21EC0E88006E5EB9 /* makefile_help.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = makefile_help.txt; sourceTree = "<group>"; };
-		AA07440D21EC0E88006E5EB9 /* revision.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = revision.sh; sourceTree = "<group>"; };
-		AA07440E21EC0E88006E5EB9 /* common.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = common.mk; sourceTree = "<group>"; };
-		AA07440F21EC0E88006E5EB9 /* configure_common.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = configure_common.sh; sourceTree = "<group>"; };
 		AA07441321EC0EC7006E5EB9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AA07441421EC0EC7006E5EB9 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		AA07441521EC0EC8006E5EB9 /* Doxyfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Doxyfile; sourceTree = "<group>"; };
 		AA07441621EC0EC8006E5EB9 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		AA07441721EC0EC8006E5EB9 /* configure */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = configure; sourceTree = "<group>"; };
 		AA07441821EC1A9C006E5EB9 /* contract.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = contract.hpp; sourceTree = "<group>"; };
@@ -58,12 +54,17 @@
 		AA07441D21EC2BCE006E5EB9 /* version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = version.cpp; sourceTree = "<group>"; };
 		AA07441F21EC2BD9006E5EB9 /* version.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = version.hpp; sourceTree = "<group>"; };
 		AA07442521EC4141006E5EB9 /* unittest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = unittest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA07443021EC41AC006E5EB9 /* ksstest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ksstest.cpp; sourceTree = "<group>"; };
-		AA07443121EC41AC006E5EB9 /* ksstest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ksstest.hpp; sourceTree = "<group>"; };
 		AA07443321EC41B9006E5EB9 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		AA07443521EC420E006E5EB9 /* version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = version.cpp; sourceTree = "<group>"; };
 		AA07443721EC44B0006E5EB9 /* contract.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = contract.cpp; sourceTree = "<group>"; };
 		AA4D19C521F3C64A002A7FBB /* intro.dox */ = {isa = PBXFileReference; lastKnownFileType = text; path = intro.dox; sourceTree = "<group>"; };
+		AA6C3BC123AEDF9500ACE3C2 /* invariant.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = invariant.hpp; sourceTree = "<group>"; };
+		AA6C3BC323AEEBE000ACE3C2 /* invariant.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = invariant.cpp; sourceTree = "<group>"; };
+		AA6C3BC523AEEC7E00ACE3C2 /* tools.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tools.cpp; sourceTree = "<group>"; };
+		AA6C3BC623AEEC7E00ACE3C2 /* tools.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = tools.hpp; sourceTree = "<group>"; };
+		AA6C3BCA23AEEF9A00ACE3C2 /* rtti.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rtti.cpp; sourceTree = "<group>"; };
+		AA6C3BCC23B0324D00ACE3C2 /* BuildSystem */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BuildSystem; sourceTree = "<group>"; };
+		AA6C3BCD23B033BE00ACE3C2 /* prereqs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = prereqs.json; sourceTree = "<group>"; };
 		AAFF8CB3238D64810077628E /* .github */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .github; sourceTree = "<group>"; };
 		AAFF8CB4238D64810077628E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,10 +91,9 @@
 		AA0743F921EC0D07006E5EB9 = {
 			isa = PBXGroup;
 			children = (
-				AAFF8CB3238D64810077628E /* .github */,
-				AAFF8CB4238D64810077628E /* .gitignore */,
 				AA07441221EC0E92006E5EB9 /* TopLevel */,
-				AA07440921EC0E88006E5EB9 /* BuildSystem */,
+				AAFF8CB3238D64810077628E /* .github */,
+				AA6C3BCC23B0324D00ACE3C2 /* BuildSystem */,
 				AA07441121EC0E88006E5EB9 /* Sources */,
 				AA07441021EC0E88006E5EB9 /* Tests */,
 				AA07440321EC0D07006E5EB9 /* Products */,
@@ -110,26 +110,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		AA07440921EC0E88006E5EB9 /* BuildSystem */ = {
-			isa = PBXGroup;
-			children = (
-				AA07440A21EC0E88006E5EB9 /* generate_all_h.sh */,
-				AA07440B21EC0E88006E5EB9 /* update_prereqs.py */,
-				AA07440C21EC0E88006E5EB9 /* makefile_help.txt */,
-				AA07440D21EC0E88006E5EB9 /* revision.sh */,
-				AA07440E21EC0E88006E5EB9 /* common.mk */,
-				AA07440F21EC0E88006E5EB9 /* configure_common.sh */,
-			);
-			path = BuildSystem;
-			sourceTree = "<group>";
-		};
 		AA07441021EC0E88006E5EB9 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				AA07443721EC44B0006E5EB9 /* contract.cpp */,
-				AA07443021EC41AC006E5EB9 /* ksstest.cpp */,
-				AA07443121EC41AC006E5EB9 /* ksstest.hpp */,
+				AA6C3BC323AEEBE000ACE3C2 /* invariant.cpp */,
 				AA07443321EC41B9006E5EB9 /* main.cpp */,
+				AA6C3BC523AEEC7E00ACE3C2 /* tools.cpp */,
+				AA6C3BC623AEEC7E00ACE3C2 /* tools.hpp */,
 				AA07443521EC420E006E5EB9 /* version.cpp */,
 			);
 			path = Tests;
@@ -138,9 +126,11 @@
 		AA07441121EC0E88006E5EB9 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				AA4D19C521F3C64A002A7FBB /* intro.dox */,
 				AA07441A21EC1AA8006E5EB9 /* contract.cpp */,
 				AA07441821EC1A9C006E5EB9 /* contract.hpp */,
+				AA4D19C521F3C64A002A7FBB /* intro.dox */,
+				AA6C3BC123AEDF9500ACE3C2 /* invariant.hpp */,
+				AA6C3BCA23AEEF9A00ACE3C2 /* rtti.cpp */,
 				AA07441D21EC2BCE006E5EB9 /* version.cpp */,
 				AA07441F21EC2BD9006E5EB9 /* version.hpp */,
 			);
@@ -150,10 +140,11 @@
 		AA07441221EC0E92006E5EB9 /* TopLevel */ = {
 			isa = PBXGroup;
 			children = (
+				AAFF8CB4238D64810077628E /* .gitignore */,
 				AA07441721EC0EC8006E5EB9 /* configure */,
-				AA07441521EC0EC8006E5EB9 /* Doxyfile */,
 				AA07441421EC0EC7006E5EB9 /* LICENSE */,
 				AA07441621EC0EC8006E5EB9 /* Makefile */,
+				AA6C3BCD23B033BE00ACE3C2 /* prereqs.json */,
 				AA07441321EC0EC7006E5EB9 /* README.md */,
 			);
 			name = TopLevel;
@@ -175,6 +166,7 @@
 			files = (
 				AA07441921EC1A9C006E5EB9 /* contract.hpp in Headers */,
 				AA07442021EC2BD9006E5EB9 /* version.hpp in Headers */,
+				AA6C3BC223AEDF9500ACE3C2 /* invariant.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,7 +215,7 @@
 		AA0743FA21EC0D07006E5EB9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Klassen Software Solutions";
 				TargetAttributes = {
 					AA07440121EC0D07006E5EB9 = {
@@ -281,6 +273,7 @@
 			files = (
 				AA07441E21EC2BCE006E5EB9 /* version.cpp in Sources */,
 				AA07441B21EC1AA8006E5EB9 /* contract.cpp in Sources */,
+				AA6C3BCB23AEEF9A00ACE3C2 /* rtti.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,8 +283,9 @@
 			files = (
 				AA07443621EC420E006E5EB9 /* version.cpp in Sources */,
 				AA07443421EC41B9006E5EB9 /* main.cpp in Sources */,
-				AA07443221EC41AC006E5EB9 /* ksstest.cpp in Sources */,
+				AA6C3BC423AEEBE000ACE3C2 /* invariant.cpp in Sources */,
 				AA07443821EC44B0006E5EB9 /* contract.cpp in Sources */,
+				AA6C3BC723AEEC7E00ACE3C2 /* tools.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,7 +332,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -356,6 +350,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /opt/kss/include;
+				LIBRARY_SEARCH_PATHS = /opt/kss/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -409,6 +405,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /opt/kss/include;
+				LIBRARY_SEARCH_PATHS = /opt/kss/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -446,9 +444,12 @@
 		AA07442921EC4141006E5EB9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 23FN26LWBV;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/.build/Darwin-x86_64/include";
+				CODE_SIGN_IDENTITY = "";
+				HEADER_SEARCH_PATHS = (
+					/opt/kss/include,
+					"$(PROJECT_DIR)/.build/Darwin-x86_64/include",
+				);
+				OTHER_LDFLAGS = "-lksstest";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -456,9 +457,12 @@
 		AA07442A21EC4141006E5EB9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 23FN26LWBV;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/.build/Darwin-x86_64/include";
+				CODE_SIGN_IDENTITY = "-";
+				HEADER_SEARCH_PATHS = (
+					/opt/kss/include,
+					"$(PROJECT_DIR)/.build/Darwin-x86_64/include",
+				);
+				OTHER_LDFLAGS = "-lksstest";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

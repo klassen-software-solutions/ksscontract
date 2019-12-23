@@ -6,32 +6,13 @@
 //  Copyright © 2019 Klassen Software Solutions. All rights reserved.
 //
 
-#include <iostream>
-#include <sstream>
-#include <string>
+#include <kss/test/all.h>
 #include <kss/contract/contract.hpp>
-#include "ksstest.hpp"
+#include "tools.hpp"
 
 using namespace std;
 using namespace kss::test;
 namespace contract = kss::contract;
-
-namespace {
-    // "Borrowed" from kssio.
-    void suppress(ostream &os, const function<void ()>& fn) {
-        os.flush();
-        stringstream redirectStream;
-        streambuf* oldbuf = os.rdbuf(redirectStream.rdbuf());
-        fn();
-        os.flush();
-        os.rdbuf(oldbuf);
-    }
-
-    class ContractTestSuite : public TestSuite, public MustNotBeParallel {
-    public:
-        ContractTestSuite(test_case_list_t fns) : TestSuite("contract", fns) {}
-    };
-}
 
 static ContractTestSuite ts({
     make_pair("passing", [] {

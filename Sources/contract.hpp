@@ -46,8 +46,8 @@ namespace kss { namespace contract {
 
 
     /*!
-     This macro is used to create the Expression objects used as inputs to the
-     condition checking methods of this library.
+     This macro is used to create the Expression objects used as inputs to the condition checking methods of this library.
+     The expr should be an expression that evaluates to a boolean.
      */
 #   define KSS_EXPR(expr) kss::contract::_private::Expression {(expr), #expr, __PRETTY_FUNCTION__, __FILE__, __LINE__}
 
