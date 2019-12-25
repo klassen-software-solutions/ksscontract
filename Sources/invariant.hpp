@@ -10,6 +10,7 @@
 #ifndef ksscontract_invariant_hpp
 #define ksscontract_invariant_hpp
 
+#include <exception>
 #include <functional>
 #include <string>
 #include <typeinfo>

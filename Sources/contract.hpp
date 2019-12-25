@@ -10,6 +10,7 @@
 #ifndef ksscontract_contract_hpp
 #define ksscontract_contract_hpp
 
+#include <cassert>
 #include <initializer_list>
 #include <string>
 
@@ -33,6 +34,10 @@ namespace kss { namespace contract {
 
         inline void precondition(const Expression& exp) {
             performTerminatingCheck("Precondition", exp);
+#if defined(__clang_analyzer__)
+            // This is used to make the static analyzer recognize the change in the flow.
+            assert(exp.result);
+#endif
         }
 
         inline void condition(const Expression& exp) {
@@ -51,6 +56,11 @@ namespace kss { namespace contract {
      */
 #   define KSS_EXPR(expr) kss::contract::_private::Expression {(expr), #expr, __PRETTY_FUNCTION__, __FILE__, __LINE__}
 
+#if defined(__clang_analyzer__)
+    // This is used to make the static analyzer recognize the change in the flow.
+#   undef KSS_EXPR
+#   define KSS_EXPR(expr) (static_cast<void>(assert(expr)), kss::contract::_private::Expression {(expr), #expr, __PRETTY_FUNCTION__, __FILE__, __LINE__})
+#endif
 
     /*!
      The parameter check is a form of precondition that is presumed to be checking
