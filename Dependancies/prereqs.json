@@ -1,3 +1,6 @@
 [
-    {"git": "https://github.com/klassen-software-solutions/ksstest.git"}
+    {
+        "git": "https://github.com/klassen-software-solutions/ksstest.git",
+        "branch": "release/v6"
+    }
 ]
