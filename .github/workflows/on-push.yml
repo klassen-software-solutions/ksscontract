@@ -30,6 +30,7 @@ jobs:
         KSS_INSTALL_PREFIX: "/tmp/opt/kss"
       run: |
         python3 -m pip install requests
+        git submodule update --init --recursive
         make prereqs
 
     - name: Build
@@ -39,6 +40,7 @@ jobs:
       env:
         KSS_INSTALL_PREFIX: "/tmp/opt/kss"
       run: |
+        git submodule update --init --recursive
         ./configure
         make prep
         make -j 4

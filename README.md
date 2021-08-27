@@ -14,7 +14,7 @@ This library contains items useful in coding based on
 to add checks on parameters, preconditions, postconditions, and middle conditions in an expressive
 manner.
 
-[API Documentation](https://www.kss.cc/apis/ksscontract/docs/index.html) 
+[API Documentation](https://klassensoftwaresolutions.ca/apis/ksscontract/docs/index.html) 
 
 ### To terminate or not to terminate?
 
@@ -58,4 +58,12 @@ contribute to the project. If you do, there are a number of policies you should 
 * Don't create projects - they are only created the by owner.
 * Projects are created based on conversations on the wiki.
 * Feel free to initiate or join conversations on the wiki.
-* Follow our [C++ Coding Standards](https://www.kss.cc/standards/c-.html).
+* Follow our [C++ Coding Standards](https://klassensoftwaresolutions.ca/standards-c-plus-plus.html).
+
+## What has changed in V2?
+
+Version 2 has changed the c++ from 14 to 17. If you still need to support 14 you can use the
+branch `release/v1`.
+
+You shouldn't need any changes in your code to support this, but you will need to perform
+a clean recompile.
