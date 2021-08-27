@@ -14,7 +14,7 @@
 #include <initializer_list>
 #include <string>
 
-namespace kss { namespace contract {
+namespace kss::contract {
 
     namespace _private {
         struct Expression {
@@ -175,6 +175,6 @@ namespace kss { namespace contract {
         }
     }
 
-}}
+}
 
 #endif

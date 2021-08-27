@@ -11,7 +11,7 @@
 
 #include <string>
 
-namespace kss { namespace contract {
+namespace kss::contract {
 
     /*!
      Returns a string of the form x.y.z<optional tags> that describes the version
@@ -24,6 +24,6 @@ namespace kss { namespace contract {
      */
     std::string license() noexcept;
 
-}}
+}
 
 #endif /* version_hpp */
