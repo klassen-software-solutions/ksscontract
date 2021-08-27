@@ -40,6 +40,7 @@ jobs:
       env:
         KSS_INSTALL_PREFIX: "/tmp/opt/kss"
       run: |
+        git submodule update --init --recursive
         ./configure
         make prep
         make -j 4
