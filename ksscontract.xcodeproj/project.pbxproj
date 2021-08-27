@@ -63,9 +63,10 @@
 		AA6C3BC523AEEC7E00ACE3C2 /* tools.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tools.cpp; sourceTree = "<group>"; };
 		AA6C3BC623AEEC7E00ACE3C2 /* tools.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = tools.hpp; sourceTree = "<group>"; };
 		AA6C3BCA23AEEF9A00ACE3C2 /* rtti.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rtti.cpp; sourceTree = "<group>"; };
-		AA6C3BCC23B0324D00ACE3C2 /* BuildSystem */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BuildSystem; sourceTree = "<group>"; };
+		AA6C3BCC23B0324D00ACE3C2 /* BuildSystem.old */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BuildSystem.old; sourceTree = "<group>"; };
 		AA6C3BCE23B1208600ACE3C2 /* Dependancies */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Dependancies; sourceTree = "<group>"; };
 		AA6C3BCF23B1219400ACE3C2 /* .gitattributes */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
+		AABBE87C26D98C3B0080846C /* BuildSystem */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BuildSystem; sourceTree = "<group>"; };
 		AAFF8CB3238D64810077628E /* .github */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .github; sourceTree = "<group>"; };
 		AAFF8CB4238D64810077628E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,7 +95,8 @@
 			children = (
 				AA07441221EC0E92006E5EB9 /* TopLevel */,
 				AAFF8CB3238D64810077628E /* .github */,
-				AA6C3BCC23B0324D00ACE3C2 /* BuildSystem */,
+				AABBE87C26D98C3B0080846C /* BuildSystem */,
+				AA6C3BCC23B0324D00ACE3C2 /* BuildSystem.old */,
 				AA6C3BCE23B1208600ACE3C2 /* Dependancies */,
 				AA07441121EC0E88006E5EB9 /* Sources */,
 				AA07441021EC0E88006E5EB9 /* Tests */,
@@ -308,7 +310,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -354,7 +356,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /opt/kss/include;
 				LIBRARY_SEARCH_PATHS = /opt/kss/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -369,7 +371,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -409,7 +411,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /opt/kss/include;
 				LIBRARY_SEARCH_PATHS = /opt/kss/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
