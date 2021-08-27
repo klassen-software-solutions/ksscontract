@@ -22,4 +22,4 @@ jobs:
       run: |
         git submodule update --init --recursive
         make docs
-        BuildSystem/publish.py --url "$X_URL" --user "$X_USER" --password "$X_PW" docs
+        BuildSystem/common/publish.py --url "$X_URL" --user "$X_USER" --password "$X_PW" docs
