@@ -59,3 +59,9 @@ contribute to the project. If you do, there are a number of policies you should 
 * Projects are created based on conversations on the wiki.
 * Feel free to initiate or join conversations on the wiki.
 * Follow our [C++ Coding Standards](https://www.kss.cc/standards/c-.html).
+
+## What has changed in V2?
+
+Version 2 has changed the c++ from 14 to 17. If you still need to support 14 you can use the
+branch `release/v1`.
+
