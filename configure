@@ -4,4 +4,4 @@
 #  ksscontract
 #
 
-source BuildSystem/configure_common.sh
+source BuildSystem/c++/configure_common.sh

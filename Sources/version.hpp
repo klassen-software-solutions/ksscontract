@@ -11,19 +11,19 @@
 
 #include <string>
 
-namespace kss { namespace contract {
+namespace kss::contract {
 
     /*!
      Returns a string of the form x.y.z<optional tags> that describes the version
      of this library.
      */
-    std::string version() noexcept;
+    [[nodiscard]] std::string version() noexcept;
 
     /*!
      Returns the text of the software license.
      */
-    std::string license() noexcept;
+    [[nodiscard]] std::string license() noexcept;
 
-}}
+}
 
 #endif /* version_hpp */

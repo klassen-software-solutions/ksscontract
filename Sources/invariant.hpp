@@ -18,7 +18,7 @@
 
 #include "contract.hpp"
 
-namespace kss { namespace contract {
+namespace kss::contract {
 
     namespace _private {
         // "Borrowed" from kssutil
@@ -80,6 +80,6 @@ namespace kss { namespace contract {
         std::hash<T>            _hasher;
         const size_t            _value;
     };
-}}
+}
 
 #endif
